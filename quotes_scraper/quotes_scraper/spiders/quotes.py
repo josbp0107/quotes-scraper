@@ -1,5 +1,9 @@
 import scrapy
 
+# Titulo = //h1/a/text()
+# Citas = //span[@class="text" and @itemprop="text"]/text()
+# Top ten tags = //div[contains(@class, "tags-box")]/span/a/text()).getall()
+
     # Es importante siempre crear la clase que hereda de scrapy
     # Estos atributos tienen que ir siempre en los archivos de spiders
 class QuotesSpyder(scrapy.Spider):
@@ -16,4 +20,20 @@ class QuotesSpyder(scrapy.Spider):
         print('\n\n')
         print(response.status, response.headers)
         print('*' * 10)
+        print('\n\n')
+
+        title = response.xpath('//h1/a/text()').get()
+        print(f'Title: {title}')
+        print('\n\n')
+
+        quotes = response.xpath('//span[@class="text" and @itemprop="text"]/text()').getall()
+        print('Quotes')
+        for quote in quotes:
+            print(f'- {quote}')
+        print('\n\n')
+
+        top_ten_tags = response.xpath('//div[contains(@class, "tags-box")]/span/a/text()').getall()
+        print('Top ten tags')
+        for tag in top_ten_tags:
+            print(f'- {tag}')
         print('\n\n')

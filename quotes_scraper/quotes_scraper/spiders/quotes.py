@@ -41,11 +41,17 @@ class QuotesSpyder(scrapy.Spider):
 
         quotes = response.xpath('//span[@class="text" and @itemprop="text"]/text()').getall()
 
-        top_ten_tags = response.xpath('//div[contains(@class, "tags-box")]/span/a/text()').getall()
+        top_tags = response.xpath('//div[contains(@class, "tags-box")]/span/a/text()').getall()
+
+        top = getattr(self, 'top', None)
+
+        if top:
+            top = int(top)
+            top_tags = top_tags[:top]
 
         yield{ # Return parcial de datos. En este caso devuelve un diccionario
             'title': title,
-            'top_ten_tags': top_ten_tags
+            'top_tags': top_tags
         }
         # Para guardar en un archivo los datos scrapeado es con el siguiente comando:
         # scrapy crawl quote quote.extension (la extension puede  ser JSON CSV XML ETC)  

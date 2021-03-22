@@ -44,7 +44,9 @@ class QuotesSpyder(scrapy.Spider):
         top_tags = response.xpath('//div[contains(@class, "tags-box")]/span/a/text()').getall()
 
         top = getattr(self, 'top', None)
-
+        # Si existe dentro de la ejecución de este spider un atributo de nombre
+        # top lo voy a guardar en mi variable top. Si no se envía el atributo en 
+        # la ejecución se guarda None en top
         if top:
             top = int(top)
             top_tags = top_tags[:top]

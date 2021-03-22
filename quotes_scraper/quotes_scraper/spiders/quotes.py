@@ -16,7 +16,12 @@ class QuotesSpyder(scrapy.Spider):
     custom_settings = {
         'FEED_URI': 'quotes.json', # Nombre del archivo
         'FEED_FORMAT': 'json', # Formato del archivo
-        'LOG_ENCODING': 'utf-8'
+        'CONCURRENT_REQUESTS': 24,
+        'MEMUSAGE_LIMIT_MB': 2048,
+        'MEMUSAGE_NOTIFY_MAIL': 'josedavid0701@gmail.com', # Correo para notificar si se paso del uso del tamaño de memoria
+        'FEDD_EXPORT_ENCODING': 'utf-8', # Enconding
+        'ROBOTSTXT_OBEY': True, 
+        'USER_AGENT': 'BOTJOSE' #Nombre del user agent para el archivo RobotTXT
     }
 
     def parse_only_quotes(self, response, **kwargs):
